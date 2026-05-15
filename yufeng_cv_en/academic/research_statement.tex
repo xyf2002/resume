@@ -1,0 +1,81 @@
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage{lmodern}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\setlength{\footskip}{4.08003pt}
+
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+\begin{document}
+
+%----------HEADING-----------------
+\begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}r}
+  \textbf{\href{https://www.linkedin.com/in/yufeng-xia-12648a25b}{\Large Yufeng (Alex) Xia}} & Email: \href{yufeng.xia@ed.ac.uk}{yufeng.xia@ed.ac.uk}\\
+  \href{https://www.linkedin.com/in/yufeng-xia-12648a25b}{linkedin.com/in/yufeng-xia-12648a25b} & Mobile: \href{tel:+447385570889}{(+44) 7385570889} \\
+  20 Bernard Terrace, Edinburgh, EH8 9AN & \\
+\end{tabular*}
+
+\vspace{-5pt}
+\begin{center}
+  \textit{\small MSc by Research Student · Research Assistant}
+\end{center}
+
+\section{Research Statement}
+
+My research journey began the summer I joined the University of Edinburgh as a research assistant. That first encounter with academic research sparked a fascination with the gap between machine learning theory and the practical challenges of building machine learning systems in the real world. I found myself drawn to a central question: how can we build systems that make machine learning more accessible at the edge? This question has since led me down an interdisciplinary path, from distributed systems to wireless networking, and continues to shape my research direction today.
+
+\subsection*{The Beginning: Learning Systems at Scale}
+
+When I first joined the research group at Edinburgh, I was drawn to the challenge of evaluation. Distributed machine learning systems are notoriously difficult to test at scale---running experiments across hundreds of edge devices is expensive, time-consuming, and often impractical. This led me to work on emulation platforms that could simulate large-scale ML workloads without requiring physical hardware.
+
+My initial work on EmuRAN taught me a valuable lesson about scale. Building a system capable of emulating thousands of mobile devices taught me that the gap between a working prototype and a scalable system is often underestimated. The problems that emerge at scale---resource management, network virtualization, coordination overhead---are qualitatively different from those at small scale.
+
+\subsection*{The Intersection of Networking and ML Systems}
+
+Through my research, I became increasingly interested in an emerging opportunity: the growing convergence between wireless communication infrastructure and AI systems. Mobile networks already contain substantial compute resources that remain idle much of the time. What if we could harness these spare cycles for machine learning?
+
+This question led to my work on Weaver, a system exploring foundation model training over RAN infrastructure. The core challenge was not merely technical but also fundamental---how do you train machine learning models on infrastructure that must prioritize its primary function? The work required rethinking resource allocation and scheduling to ensure that AI workloads could coexist with network operations without degradation.
+
+I also contributed to Morphling, an emulator for distributed ML at the edge. Here, the focus was on building evaluation infrastructure that could keep pace with the rapid evolution of edge ML systems. The key insight was that emulation fidelity matters: to be useful, an emulator must faithfully represent the characteristics of real edge environments, including resource heterogeneity and communication constraints.
+
+\subsection*{Looking Forward}
+
+My research is driven by a conviction that the future of machine learning lies at the edge. As models become more capable and deployment scenarios more diverse, the systems that support edge ML will become increasingly critical. I am particularly interested in two directions:
+
+First, I want to continue building infrastructure that makes edge ML research more accessible. Emulation, simulation, and benchmarking tools are often underappreciated, but they form the foundation upon which new research is built. Second, I am fascinated by the opportunities at the intersection of networking and AI---how communication infrastructure can be reimagined as a platform for ML workloads.
+
+Beyond these specific directions, I am broadly interested in the systems engineering challenges that arise when machine learning meets real-world constraints: scale, heterogeneity, resource limitations, and the need for reproducible experimentation.
+
+\section{Selected Publications}
+
+\begin{itemize}
+  \item \textbf{Yufeng Xia}, et al. ``Morphling: Emulator for Distributed Machine Learning at the Edge.'' \textit{EdgeSys 2026.}
+  \item \textbf{Yufeng Xia}, et al. ``Weaver: Foundation Model Training over AI-RAN Compute Infrastructure.'' \textit{MobiCom 2026.}
+  \item \textbf{Yufeng Xia}, et al. ``EmuRAN: Scalable and Cost-Effective Cloud-based RAN Emulation System.'' \textit{MobiCom 2026.}
+\end{itemize}
+
+\end{document}
