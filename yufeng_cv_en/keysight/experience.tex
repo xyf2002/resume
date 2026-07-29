@@ -1,0 +1,55 @@
+%-----------RESEARCH AND PROJECT EXPERIENCE-----------------
+\section{Research and Project Experience}
+  \resumeSubHeadingListStart
+
+    \resumeSubheading
+      {Flux-DT --- Elastic, Preemption-Tolerant Digital Twin Runtime for AI-RAN}{\textbf{MSc by Research Thesis}}
+      {University of Edinburgh --- sole author}{Sep 2025 -- Present}
+      \resumeItemListStart
+        \resumeItem{Twin in the radio path}
+          {Built a GPU-accelerated radio digital twin that runs \textit{inside} the radio path of a live OpenAirInterface 5G stack, so that real signalling and user traffic flows through a ray-traced channel model (Sionna RT) distributed across GPU workers.}
+        \resumeItem{Near-real-time elastic control}
+          {Designed a control loop that responds to radio-driven resource pressure with a graded set of actions --- relocating work to less contended machines, lowering simulation fidelity within bounds that live radio procedures tolerate, and suspending and resuming the twin --- so that the live RAN retains priority while the twin preserves its state.}
+        \resumeItem{Multi-cell fidelity placement}
+          {Implemented a joint objective across co-channel cells that decides which tiles are worth solving under interference, and reused the same ordering to determine which work is shed first when spare compute is reclaimed mid-solve.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {EmuRAN --- Scalable, Cost-Effective Cloud-based RAN Emulation System}{MobiCom 2026}
+      {Research Assistant; \textbf{owned the end-to-end evaluation}}{Conditionally Accepted}
+      \resumeItemListStart
+        \resumeItem{Public cloud operation}
+          {Deployed and operated the emulator on public cloud infrastructure at 130 instances and 6,400 CPU cores, emulating 10,000 mobile devices and 10,000 base stations, two orders of magnitude larger in scale than existing software solutions.}
+        \resumeItem{Fidelity and scalability validation}
+          {Designed and ran the evaluation campaign: fidelity against a real RAN (contention-based random access timelines, iperf3 throughput comparison, per-slot completion-time distributions) and scalability (time-dilation behaviour against node count and under constrained compute).}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Weaver --- Foundation Model Training over AI-RAN Compute Infrastructure}{Under Submission}
+      {Research Assistant; spare-compute controller evaluation and large-scale experiments}{2024 -- 2026}
+      \resumeItemListStart
+        \resumeItem{RAN-centric spare compute control}
+          {Evaluated the controller that decides how much accelerator capacity an AI workload may harvest from shared RAN infrastructure without degrading live radio performance --- a near-real-time resource-allocation problem on GPU-accelerated RAN hardware.}
+        \resumeItem{PHY experiments and large-scale evaluation}
+          {Ran PHY-layer experiments and GPU profiling to characterise the interference between training workloads and radio processing, and carried out the large-scale evaluation of the system.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {CoSenseAQ --- LLVM Auto-Quantization from Sensor Specifications}{Under Submission}
+      {Research Assistant, ICSA; first author}{Apr 2024 -- May 2025}
+      \resumeItemListStart
+        \resumeItem{Compiler framework}
+          {Developed an LLVM-based auto-quantization framework and LLVM pass that reads sensor datasheet specifications and drives IR-level transformations, reducing code size and improving execution speed for embedded systems.}
+        \resumeItem{Embedded evaluation}
+          {Evaluated the framework on embedded ARM devices, measuring power, performance and area improvements; low-level C/C++ and cross-compilation toolchain work throughout.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Morphling --- Emulator for Distributed Machine Learning at the Edge}{EdgeSys 2026}
+      {Research Assistant; \textbf{Best Paper Award}}{Oct 2025 -- Mar 2026}
+      \resumeItemListStart
+        \resumeItem{Measurement-driven edge emulation}
+          {Contributed to a measurement-driven emulator for evaluating distributed ML training on heterogeneous edge devices, supporting up to 1,800 emulated devices on a single GPU server with low latency and thermal modelling error.}
+      \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
