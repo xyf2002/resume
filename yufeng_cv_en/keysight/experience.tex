@@ -6,8 +6,8 @@
       {Flux-DT --- Elastic, Preemption-Tolerant Digital Twin Runtime for AI-RAN}{\textbf{MSc by Research Thesis}}
       {University of Edinburgh --- sole author}{Sep 2025 -- Present}
       \resumeItemListStart
-        \resumeItem{Twin in the radio path}
-          {Built a GPU-accelerated radio digital twin that runs \textit{inside} the radio path of a live OpenAirInterface 5G stack, so that real signalling and user traffic flows through a ray-traced channel model (Sionna RT) distributed across GPU workers.}
+        \resumeItem{Sharing RAN compute with a stateful workload}
+          {Existing AI-RAN compute-sharing designs assume the co-located workload is stateless and disposable, whereas a radio digital twin is neither: it holds scene state that must survive interruption. Built a runtime that lets such a twin run on bursty spare compute in the radio path of a live OpenAirInterface 5G stack, without violating live RAN priorities or corrupting its own state.}
         \resumeItem{Near-real-time elastic control}
           {Designed a control loop that responds to radio-driven resource pressure with a graded set of actions: relocating work to less contended machines, lowering simulation fidelity within bounds that live radio procedures tolerate, and suspending and resuming the twin. The live RAN retains priority throughout, while the twin preserves its state.}
         \resumeItem{Multi-cell fidelity placement}
@@ -19,7 +19,7 @@
       {Research Assistant; \textbf{owned the end-to-end evaluation}}{Conditionally Accepted}
       \resumeItemListStart
         \resumeItem{Public cloud operation}
-          {Deployed and operated the emulator on public cloud infrastructure at 130 instances and 6,400 CPU cores, emulating 10,000 mobile devices and 10,000 base stations, two orders of magnitude larger in scale than existing software solutions.}
+          {Deployed and operated the emulator on public cloud infrastructure, emulating over 10,000 mobile devices, two orders of magnitude larger in scale than existing software solutions.}
         \resumeItem{Fidelity and scalability validation}
           {Designed and ran the evaluation campaign: fidelity against a real RAN (contention-based random access timelines, iperf3 throughput comparison, per-slot completion-time distributions) and scalability (time-dilation behaviour against node count and under constrained compute).}
       \resumeItemListEnd
