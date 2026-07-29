@@ -23,8 +23,8 @@ $(BUILD_DIR):
 
 # Compile Chinese CV
 $(CN_OUTPUT): $(CN_SOURCE) | $(OUT_DIR) $(BUILD_DIR)
-	cd yufeng_cv_cn && pdflatex -output-directory=../$(BUILD_DIR) yufeng_cn.tex
-	cd yufeng_cv_cn && pdflatex -output-directory=../$(BUILD_DIR) yufeng_cn.tex
+	cd yufeng_cv_cn && xelatex -output-directory=../$(BUILD_DIR) yufeng_cn.tex
+	cd yufeng_cv_cn && xelatex -output-directory=../$(BUILD_DIR) yufeng_cn.tex
 	cp $(BUILD_DIR)/yufeng_cn.pdf $(CN_OUTPUT)
 
 # Compile English CV
