@@ -9,7 +9,7 @@
         \resumeItem{Sharing RAN compute with a stateful workload}
           {Existing AI-RAN compute-sharing designs assume the co-located workload is stateless and disposable, whereas a radio digital twin is neither: it holds scene state that must survive interruption. Built a runtime that lets such a twin run on bursty spare compute in the radio path of a live OpenAirInterface 5G stack, without violating live RAN priorities or corrupting its own state.}
         \resumeItem{Near-real-time elastic control}
-          {Designed a control loop that responds to radio-driven resource pressure with a graded set of actions: relocating work to less contended machines, lowering simulation fidelity within bounds that live radio procedures tolerate, and suspending and resuming the twin. The live RAN retains priority throughout, while the twin preserves its state.}
+          {Designed a control loop that responds to radio-driven resource pressure with a graded set of actions to ensureThe live RAN retains priority throughout, while the twin preserves its state.}
         \resumeItem{Multi-cell fidelity placement}
           {Implemented a joint objective across co-channel cells that decides which tiles are worth solving under interference, and reused the same ordering to determine which work is shed first when spare compute is reclaimed mid-solve.}
       \resumeItemListEnd
@@ -38,8 +38,8 @@
       {CoSenseAQ --- LLVM Auto-Quantization from Sensor Specifications}{Under Submission}
       {Research Assistant, ICSA; first author}{Apr 2024 -- May 2025}
       \resumeItemListStart
-        \resumeItem{Compiler framework}
-          {Developed an LLVM-based auto-quantization framework and LLVM pass that reads sensor datasheet specifications and drives IR-level transformations, reducing code size and improving execution speed for embedded systems.}
+        \resumeItem{Sensor specifications as compiler input}
+          {Built an LLVM auto-quantization framework that drives optimisation from sensor specifications, information a compiler cannot recover from source alone, reducing code size and execution time on embedded targets.}
         \resumeItem{Embedded evaluation}
           {Evaluated the framework on embedded ARM devices, measuring power, performance and area improvements; low-level C/C++ and cross-compilation toolchain work throughout.}
       \resumeItemListEnd
