@@ -9,7 +9,7 @@
         \resumeItem{Twin in the radio path}
           {Built a GPU-accelerated radio digital twin that runs \textit{inside} the radio path of a live OpenAirInterface 5G stack, so that real signalling and user traffic flows through a ray-traced channel model (Sionna RT) distributed across GPU workers.}
         \resumeItem{Near-real-time elastic control}
-          {Designed a control loop that responds to radio-driven resource pressure with a graded set of actions --- relocating work to less contended machines, lowering simulation fidelity within bounds that live radio procedures tolerate, and suspending and resuming the twin --- so that the live RAN retains priority while the twin preserves its state.}
+          {Designed a control loop that responds to radio-driven resource pressure with a graded set of actions: relocating work to less contended machines, lowering simulation fidelity within bounds that live radio procedures tolerate, and suspending and resuming the twin. The live RAN retains priority throughout, while the twin preserves its state.}
         \resumeItem{Multi-cell fidelity placement}
           {Implemented a joint objective across co-channel cells that decides which tiles are worth solving under interference, and reused the same ordering to determine which work is shed first when spare compute is reclaimed mid-solve.}
       \resumeItemListEnd
@@ -29,7 +29,7 @@
       {Research Assistant; spare-compute controller evaluation and large-scale experiments}{2024 -- 2026}
       \resumeItemListStart
         \resumeItem{RAN-centric spare compute control}
-          {Evaluated the controller that decides how much accelerator capacity an AI workload may harvest from shared RAN infrastructure without degrading live radio performance --- a near-real-time resource-allocation problem on GPU-accelerated RAN hardware.}
+          {Evaluated the controller that decides how much accelerator capacity an AI workload may harvest from shared RAN infrastructure without degrading live radio performance, a near-real-time resource-allocation problem on GPU-accelerated RAN hardware.}
         \resumeItem{PHY experiments and large-scale evaluation}
           {Ran PHY-layer experiments and GPU profiling to characterise the interference between training workloads and radio processing, and carried out the large-scale evaluation of the system.}
       \resumeItemListEnd
