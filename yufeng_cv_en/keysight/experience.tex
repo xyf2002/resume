@@ -8,10 +8,10 @@
       \resumeItemListStart
         \resumeItem{Sharing RAN compute with a stateful workload}
           {Existing AI-RAN compute-sharing designs assume the co-located workload is stateless and disposable, whereas a radio digital twin is neither: it holds scene state that must survive interruption. Built a runtime that lets such a twin run on bursty spare compute in the radio path of a live OpenAirInterface 5G stack, without violating live RAN priorities or corrupting its own state.}
-        \resumeItem{Near-real-time elastic control}
-          {Designed a control loop that responds to radio-driven resource pressure with a graded set of actions to ensureThe live RAN retains priority throughout, while the twin preserves its state.}
-        \resumeItem{Multi-cell fidelity placement}
-          {Implemented a joint objective across co-channel cells that decides which tiles are worth solving under interference, and reused the same ordering to determine which work is shed first when spare compute is reclaimed mid-solve.}
+        \resumeItem{Near-real-time control policy}
+          {Designed and implemented the control loop that responds to radio-driven resource pressure with a graded set of actions, on the near-real-time timescale the radio imposes. The live RAN retains priority throughout, while the twin preserves its state.}
+        \resumeItem{Multi-cell fidelity placement algorithm}
+          {Formulated fidelity placement as a joint objective across co-channel cells and \textbf{designed a greedy heuristic} that decides which tiles are worth solving under interference; the same ranking determines which work is shed first when spare compute is reclaimed mid-solve.}
       \resumeItemListEnd
 
     \resumeSubheading
@@ -30,8 +30,8 @@
       \resumeItemListStart
         \resumeItem{RAN-centric spare compute control}
           {Evaluated the controller that decides how much accelerator capacity an AI workload may harvest from shared RAN infrastructure without degrading live radio performance, a near-real-time resource-allocation problem on GPU-accelerated RAN hardware.}
-        \resumeItem{PHY experiments and large-scale evaluation}
-          {Ran PHY-layer experiments and GPU profiling to characterise the interference between training workloads and radio processing, and carried out the large-scale evaluation of the system.}
+        \resumeItem{PHY experiments and large-scale training runs}
+          {Ran PHY-layer experiments and GPU profiling to characterise the interference between training workloads and radio processing, and carried out the large-scale foundation-model training runs used in the evaluation.}
       \resumeItemListEnd
 
     \resumeSubheading
