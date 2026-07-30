@@ -71,6 +71,9 @@ top of it I designed a control loop that reacts to radio-driven resource pressur
 on the timescale the radio imposes: it relocates work to less contended machines,
 lowers simulation fidelity only within bounds that live radio procedures
 tolerate, and suspends and resumes the twin when no further reduction is safe.
+The placement decision itself is a joint objective across co-channel cells that I
+solve with a greedy heuristic, because the decision has to be made faster than an
+exact solver could return.
 Getting this right meant treating the live RAN as the priority workload at every
 step, and treating the twin's own state as something that must survive being
 interrupted. I understand these to be the same constraints that a production
@@ -95,10 +98,15 @@ development and platform work in the same place. Developing AI and machine
 learning algorithms for prioritised O-RAN use cases, and then validating them on
 digital twins and emulation platforms instead of in a conventional lab, is
 exactly the loop I have been building the tools for, and I would much rather
-close that loop against real equipment than in simulation alone. Applying AI and
-machine learning to the optimisation of cellular network resources, and doing so
-in the context of 5G and future 6G radio access, is the direction I intend to
-build my career in.
+close that loop against real equipment than in simulation alone. The near-real-time
+use cases interest me most --- traffic steering, load balancing and energy saving,
+where a decision has to respect interference and load conditions within a deadline
+rather than converge eventually. My control-loop work has been at exactly that
+timescale, though outside a RIC; the natural next step is to develop such logic as
+an xApp against the near-RT RIC and validate it on a digital twin, which is what
+this role does. Applying AI and machine learning to the optimisation of cellular
+network resources, in the context of 5G and future 6G radio access, is the
+direction I intend to build my career in.
 
 I graduate in September 2026 and am available for a full-time internship from
 then. I am already based in Edinburgh, so I can work on site without relocating.
