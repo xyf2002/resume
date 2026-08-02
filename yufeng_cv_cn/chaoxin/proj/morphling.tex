@@ -1,0 +1,11 @@
+    \resumeSubheading
+      {Morphling: Emulator for Distributed Machine Learning at the Edge}{EdgeSys 2026，\textbf{最佳论文奖}}
+      {研究助理 —— C++ 后端、故障容错与 GPU 算力划分}{2025 年 10 月 -- 2026 年 3 月}
+      \resumeItemListStart
+        \resumeItem{C++ 后端与通信层}
+          {基于 epoll 事件循环与 Protobuf 消息实现代理服务端／客户端与设备追踪模块（约 50 次提交集中于 \texttt{csrc/backend}），支撑单台 GPU 服务器模拟至多 1{,}800 台异构设备。}
+        \resumeItem{故障容错与动态伸缩}
+          {实现设备故障检测与目标设备重选、分区重排（排除故障设备）、运行期动态增删设备数量，定位并修复设备故障引发的通信死锁。}
+        \resumeItem{GPU 算力划分}
+          {基于 CUDA Green Context 的 per-GEMM SM 分区，经 autograd hook 按执行 trace 驱动切换，实现细粒度的 GPU 算力隔离与共享。}
+      \resumeItemListEnd

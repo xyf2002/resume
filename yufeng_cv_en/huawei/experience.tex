@@ -1,0 +1,55 @@
+%-----------RESEARCH AND PROJECT EXPERIENCE-----------------
+\section{Research and Project Experience}
+  \resumeSubHeadingListStart
+
+    \resumeSubheading
+      {Weaver --- Foundation Model Training over Shared AI Compute Infrastructure}{Under Submission}
+      {Research Assistant; spare-compute controller evaluation and large-scale experiments}{2024 -- 2026}
+      \resumeItemListStart
+        \resumeItem{Accelerator harvesting under a latency-critical co-tenant}
+          {Evaluated the controller that decides how much accelerator capacity an AI workload may harvest from infrastructure shared with a latency-critical tenant, a near-real-time resource-allocation problem on GPU-accelerated hardware. On a multi-site testbed it harvests up to \textbf{83\%} of the available spare compute without degrading the co-tenant's performance.}
+        \resumeItem{Profiling and large-scale training runs}
+          {Ran GPU profiling and low-level experiments to characterise interference between training workloads and the co-located latency-critical workload, and carried out the large-scale distributed foundation-model training runs used in the evaluation.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Flux-DT --- Elastic, Preemption-Tolerant Runtime for Stateful Workloads on Spare Compute}{\textbf{MSc by Research Thesis}}
+      {University of Edinburgh --- sole author}{Sep 2025 -- Present}
+      \resumeItemListStart
+        \resumeItem{State that must survive preemption}
+          {Existing compute-sharing designs assume the harvesting workload is stateless and disposable. Built a runtime for a workload that is neither: it holds scene state that must survive interruption, so reclaiming its compute cannot simply mean killing it. The runtime lets such a workload run on bursty, reclaimable capacity without violating the priority tenant's guarantees or corrupting its own state.}
+        \resumeItem{Near-real-time control policy}
+          {Designed and implemented a control loop that answers resource pressure with a graded set of actions --- relocation, fidelity reduction, suspend and resume --- rather than a single eviction decision, on the timescale the priority workload imposes.}
+        \resumeItem{Scheduling heuristic and shedding order}
+          {Formulated work placement as a joint objective across interfering units and \textbf{designed a greedy heuristic} to decide which work is worth doing; the same ranking determines the shedding order when compute is reclaimed mid-solve.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Morphling --- Emulator for Distributed Machine Learning at the Edge}{EdgeSys 2026}
+      {Research Assistant; \textbf{Best Paper Award}}{Oct 2025 -- Mar 2026}
+      \resumeItemListStart
+        \resumeItem{Measurement-driven emulation of distributed training}
+          {Contributed to a measurement-driven emulator for evaluating distributed ML training across heterogeneous devices, supporting up to 1,800 emulated devices on a single GPU server with low latency and thermal modelling error.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {EmuRAN --- Scalable, Cost-Effective Cloud-based Emulation System}{MobiCom 2026}
+      {Research Assistant; \textbf{owned the end-to-end evaluation}}{Conditionally Accepted}
+      \resumeItemListStart
+        \resumeItem{Cloud deployment at scale}
+          {Deployed and operated the emulator on public cloud infrastructure across 130 instances and 6,400 CPU cores, emulating over 10,000 devices, two orders of magnitude larger in scale than existing software solutions.}
+        \resumeItem{Fidelity and scalability evaluation}
+          {Designed and ran the evaluation campaign: fidelity against real hardware and scalability under node count and constrained compute, establishing that the system behaves correctly rather than merely running at scale.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {CoSenseAQ --- LLVM Auto-Quantization from Sensor Specifications}{Under Submission}
+      {Research Assistant, ICSA; first author}{Apr 2024 -- May 2025}
+      \resumeItemListStart
+        \resumeItem{Compiler-level optimisation}
+          {Built an LLVM auto-quantization framework driven by information a compiler cannot recover from source alone, reducing code size and execution time on embedded targets; low-level C/C++ and cross-compilation toolchain work throughout.}
+        \resumeItem{Measurement on real hardware}
+          {Evaluated the framework on embedded ARM devices, measuring power, performance and area improvements.}
+      \resumeItemListEnd
+
+  \resumeSubHeadingListEnd

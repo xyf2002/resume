@@ -1,0 +1,72 @@
+%-----------RESEARCH EXPERIENCE-----------------
+\section{Research Experience}
+
+\pubgroup{Compilers and Parallel Execution}
+  \resumeSubHeadingListStart
+
+    \resumeSubheading
+      {CoSenseAQ --- Automatic Quantisation in LLVM from Sensor Specifications}{under submission}
+      {Junior Research Assistant, ICSA; \textbf{first author}; supervised by Dr Antonio Barbalace}{Apr 2024 -- May 2025}
+      \resumeItemListStart
+        \resumeItem{Transformation derived from a specification, not from source}
+          {Built an LLVM framework that derives a quantisation strategy from sensor technical specifications --- information a compiler cannot recover from the program itself --- and applies it as IR-level transformations, replacing manual per-target tuning. Implemented as LLVM passes in C++ over a cross-compilation toolchain.}
+        \resumeItem{Correctness and measured cost}
+          {Established that the transformation stays within the numerical behaviour the specification permits; measured on ARM Cortex-M0 and Cortex-A53 in code size, execution time, power and area.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {GPU Kernel Design for Similarity Search}{grade \textbf{A}}
+      {Machine Learning Systems coursework, University of Edinburgh --- individual project}{2024}
+      \resumeItemListStart
+        \resumeItem{Vectorised kernels written against the memory hierarchy}
+          {Wrote Triton kernels for L2, cosine, dot-product and Manhattan distance, and built KNN, K-Means and approximate nearest-neighbour search on them. Performance came from explicit control of the mapping: block-level tiling of the reduction dimension, masked handling of ragged boundaries, and coalesced loads.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {RISC-V Processor Design and FPGA Implementation}{grade \textbf{A}}
+      {Computer Architecture and Design coursework, University of Edinburgh --- individual project}{2023}
+      \resumeItemListStart
+        \resumeItem{From RTL to measured cycles}
+          {Implemented the ALU, register file and datapath in Verilog, integrated them into a working RISC-V processor, and validated it on a PYNQ-Z2 board after synthesis in Vivado; designed microarchitectural enhancements and evaluated them in CPI and memory bandwidth.}
+      \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+
+\pubgroup{Systems for Machine Learning}
+  \resumeSubHeadingListStart
+
+    \resumeSubheading
+      {Flux-DT --- Preemption-Tolerant Runtime for Stateful Workloads}{\textbf{MSc thesis}}
+      {University of Edinburgh --- sole author}{Sep 2025 -- Present}
+      \resumeItemListStart
+        \resumeItem{Partitioning and shedding as one decision}
+          {Compute-sharing designs assume the harvesting workload is stateless and disposable; this one is neither, so reclaiming its compute cannot mean killing it. Formulated work placement as a joint objective across mutually interfering units and designed a greedy heuristic deciding which work is worth doing; the same ranking fixes the shedding order when compute is reclaimed mid-solve. A control loop answers resource pressure with graded actions --- relocation, fidelity reduction, suspend and resume --- rather than a single eviction.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Morphling --- Emulator for Distributed Machine Learning at the Edge}{EdgeSys 2026, \textbf{Best Paper}}
+      {Research Assistant --- C++ backend, fault tolerance, GPU partitioning}{Oct 2025 -- Mar 2026}
+      \resumeItemListStart
+        \resumeItem{Per-GEMM SM partitioning}
+          {Implemented trace-driven GPU capacity partitioning with CUDA green contexts, dispatched through autograd hooks at per-GEMM granularity, so co-located training workloads share a device under explicit rather than incidental allocation.}
+        \resumeItem{Event-driven backend and failure handling}
+          {Built the proxy server, client and device-tracking layer in C++ on an epoll event loop with Protobuf messaging, supporting up to 1,800 emulated devices on one GPU server; added failure detection and target reselection, partition re-derivation, and runtime membership changes, removing a class of failure-induced deadlocks.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Weaver --- Foundation Model Training over Shared AI Compute}{under submission}
+      {Research Assistant --- controller evaluation, profiling, large-scale runs}{2024 -- 2026}
+      \resumeItemListStart
+        \resumeItem{Harvesting accelerator capacity without disturbing a co-tenant}
+          {Evaluated the controller deciding how much accelerator capacity a training workload may harvest from infrastructure shared with a latency-critical tenant. On a multi-site testbed it harvests up to \textbf{83\%} of the available spare compute with no degradation to the co-tenant; characterised their interference through GPU profiling and ran the large-scale distributed training used in the evaluation.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {EmuRAN --- Scalable and Cost-Effective Cloud-based RAN Emulation}{MobiCom 2026, cond.\ accepted}
+      {Research Assistant --- \textbf{owned the end-to-end evaluation}}{2024 -- 2026}
+      \resumeItemListStart
+        \resumeItem{Kernel-level virtualisation, evaluated at scale}
+          {Built and deployed a custom Linux kernel module and a modified KVM module providing time-dilated virtual machines, with automated provisioning, mesh routing and Kubernetes formation; ran the system across \textbf{130 cloud instances and 6,400 CPU cores}, emulating over \textbf{10,000} devices, and designed the fidelity and scalability evaluation.}
+      \resumeItemListEnd
+
+  \resumeSubHeadingListEnd

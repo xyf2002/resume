@@ -1,0 +1,11 @@
+    \resumeSubheading
+      {Flux-DT: An Elastic, Preemption-Tolerant Runtime for Stateful Workloads on Spare Compute}{\textbf{硕士学位论文}}
+      {爱丁堡大学 —— 独立作者}{2025 年 9 月 -- 至今}
+      \resumeItemListStart
+        \resumeItem{有状态负载的抢占容忍}
+          {既有算力共享方案默认借用方是无状态、可随时丢弃的；本工作面向持有必须跨中断存活的状态的负载，构建运行时使其能跑在突发、可被回收的算力上，既不破坏高优先级租户的性能保证，也不损坏自身状态。}
+        \resumeItem{近实时控制策略}
+          {设计并实现控制回路，在高优先级负载所要求的时间尺度上，以迁移、降精度、挂起与恢复等分级动作响应资源压力，而非单一的驱逐决策。}
+        \resumeItem{调度启发式与卸载顺序}
+          {将任务放置建模为跨相互干扰单元的联合优化目标，设计贪心启发式决定哪些工作值得执行；同一排序在算力被回收时决定卸载顺序。}
+      \resumeItemListEnd

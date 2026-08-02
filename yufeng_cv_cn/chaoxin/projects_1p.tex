@@ -1,0 +1,39 @@
+%-----------科研与项目经历（1 页版，压缩）-----------------
+\section{科研与项目经历}
+  \resumeSubHeadingListStart
+
+    \resumeSubheading
+      {Weaver: Foundation Model Training over Shared AI Compute Infrastructure}{论文在投}
+      {研究助理 —— 算力借用控制器评测、GPU 剖析与大规模训练实验}{2024 -- 2026}
+      \resumeItemListStart
+        \resumeItem{算力借用与干扰刻画}
+          {评测决定 AI 训练负载可从延迟敏感租户处借用多少加速器算力的控制器（近实时资源分配问题），多站点测试床上借用至多 \textbf{83\%} 空闲算力且不损害同驻租户性能；以 GPU profiling 刻画两类负载间的资源干扰，并执行评测所需的大规模分布式训练。}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Morphling: Emulator for Distributed Machine Learning at the Edge}{EdgeSys 2026，\textbf{最佳论文奖}}
+      {研究助理 —— C++ 后端、故障容错与 GPU 算力划分}{2025.10 -- 2026.03}
+      \resumeItemListStart
+        \resumeItem{C++ 后端与容错}
+          {以 epoll 事件循环与 Protobuf 实现代理服务端／客户端与设备追踪模块（约 50 次提交集中于 \texttt{csrc/backend}），支撑单台 GPU 服务器模拟至多 1{,}800 台异构设备；实现故障检测与目标重选、分区重排、运行期动态增删设备，修复故障引发的通信死锁。}
+        \resumeItem{GPU 算力划分}
+          {基于 CUDA Green Context 的 per-GEMM SM 分区，经 autograd hook 按执行 trace 驱动切换，实现细粒度 GPU 算力隔离与共享。}
+      \resumeItemListEnd
+
+    \resumeCompact
+      {GPU 算子开发与调优（Machine Learning Systems 课程项目，成绩 A）}{爱丁堡大学，2024}
+      {用 Triton 手写 L2、余弦、点积、曼哈顿四类距离算子，并实现 KNN、K-Means 与近似最近邻检索；按 \texttt{BLOCK\_SIZE} 分块切分、掩码处理边界、合并访存降低带宽压力，替换框架层通用实现。}
+
+    \resumeCompact
+      {RISC-V 处理器设计与 FPGA 实现（Computer Architecture and Design 课程项目，成绩 A）}{爱丁堡大学，2023}
+      {用 Verilog 实现算术逻辑单元、寄存器堆等部件并集成为可运行的 RISC-V 处理器，经 Vivado 综合实现后下载至 \textbf{PYNQ-Z2} 开发板实测验证；自行设计微架构增强方案并按定量方法评估 CPI 与访存带宽收益。}
+
+    \resumeSubheading
+      {EmuRAN: Scalable and Cost-Effective Cloud-based RAN Emulation System}{MobiCom 2026，有条件录用}
+      {研究助理 —— 云上部署与端到端评测}{2024 -- 2026}
+      \resumeItemListStart
+        \resumeItem{内核、虚拟化与规模评测}
+          {编译部署自定义 Linux 内核模块与改版 KVM 模块以支持时间膨胀虚拟机，自动化完成实例创建、网状路由与 Kubernetes 组建；在公有云 \textbf{130 实例、6{,}400 CPU 核} 上模拟超 \textbf{10{,}000} 台设备，规模较既有方案高两个数量级，并设计执行保真度与可扩展性评测。}
+      \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
