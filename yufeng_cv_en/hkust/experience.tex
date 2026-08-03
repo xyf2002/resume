@@ -1,63 +1,59 @@
-%-----------RESEARCH EXPERIENCE-----------------
-\section{Research Experience}
+%-----------RESEARCH AND PROJECT EXPERIENCE-----------------
+\section{Research and Project Experience}
   \resumeSubHeadingListStart
 
     \resumeSubheading
       {Weaver --- Foundation Model Training over Shared AI Compute Infrastructure}{Under Submission}
-      {University of Edinburgh --- GPU profiling, interference characterisation, controller evaluation}{2024 -- 2026}
+      {Research Assistant; GPU profiling, interference characterisation, controller evaluation}{2024 -- 2026}
       \resumeItemListStart
         \resumeItem{Harvesting accelerators from a latency-critical tenant}
-          {Weaver lets foundation-model training run on GPUs that a latency-critical workload owns, harvesting up to \textbf{83\%} of the available spare compute on a multi-site testbed without degrading the priority tenant. The core question --- how much capacity may be taken, and how fast the decision must be revised --- is a near-real-time resource-allocation problem on shared accelerators.}
-        \resumeItem{Why the sharing works: a roofline argument}
-          {Ran the GPU profiling and roofline analysis showing the priority workload's kernels are memory-bandwidth-bound (arithmetic intensity two to three orders of magnitude below the device ridge point), while training is compute-bound --- the asymmetry that makes co-location possible at the SM level rather than merely time-slicing.}
-        \resumeItem{Deadline-aware measurement}
-          {Instrumented the priority workload's scheduler to measure per-deadline completion under co-location, and carried out the large-scale distributed training runs used in the evaluation across a multi-site deployment with a measured inter-site bandwidth/latency matrix.}
+          {Evaluated the controller that decides how much accelerator capacity an AI workload may harvest from infrastructure shared with a latency-critical tenant, a near-real-time resource-allocation problem on GPU-accelerated hardware. On a multi-site testbed it harvests up to \textbf{83\%} of the available spare compute without degrading the co-tenant's performance.}
+        \resumeItem{Roofline analysis and deadline measurement}
+          {Ran the GPU profiling and roofline analysis showing the priority workload's kernels are memory-bandwidth-bound while training is compute-bound --- the asymmetry that makes SM-level co-location possible; instrumented its scheduler to measure per-deadline completion, and carried out the large-scale distributed training runs used in the evaluation.}
       \resumeItemListEnd
 
     \resumeSubheading
-      {Morphling --- Emulator for Distributed Machine Learning at the Edge}{EdgeSys'26, \textbf{Best Paper}}
-      {University of Edinburgh --- \textbf{owned the C++ transport data plane}}{Oct 2025 -- Mar 2026}
+      {Morphling --- Emulator for Distributed Machine Learning at the Edge}{EdgeSys 2026}
+      {Research Assistant; \textbf{Best Paper Award}; owned the C++ transport data plane}{Oct 2025 -- Mar 2026}
       \resumeItemListStart
         \resumeItem{Inter-device transport}
-          {Built the event-driven (libevent) proxy client/server that carries tensor traffic between emulated devices --- roughly \textbf{2{,}400 lines of C++} across \texttt{proxy\_svr}, \texttt{proxy\_cli} and the connection layer, in an 18k-line C++/CUDA codebase. Emulation fidelity is bounded by this path, so transfer cost had to be driven down to the microsecond level.}
+          {Built the event-driven (libevent) proxy client/server carrying tensor traffic between emulated devices --- \textbf{2{,}400 lines of C++} in an 18k-line C++/CUDA codebase. Emulation fidelity is bounded by this path, so transfer cost had to be driven to the microsecond level.}
         \resumeItem{Zero-copy and memory-path optimisation}
-          {Designed a bucketed \texttt{cudaHostAlloc} pinned-memory pool and zero-copy scatter-gather buffers to remove per-transfer allocation and staging copies; added CUDA host-registration and worker-thread pinning, each validated with dedicated microbenchmarks.}
-        \resumeItem{Serialisation and batching cost analysis}
-          {Measured serialisation overhead across Protobuf and FlatBuffers along the full send path (serialise / size / transmit), and used the results to choose the batching and framing strategy; wrote up the analysis as design documents in the repository.}
-        \resumeItem{Distributed correctness}
-          {Implemented virtual-clock synchronisation so that event-driven virtual time stays consistent across emulated devices, and diagnosed and fixed the connection-cleanup and device-failure deadlocks that appeared at scale.}
+          {Designed a bucketed \texttt{cudaHostAlloc} pinned-memory pool and zero-copy scatter-gather buffers to remove per-transfer allocation and staging copies; added CUDA host registration and thread pinning, each validated with dedicated microbenchmarks.}
+        \resumeItem{Serialisation cost and distributed correctness}
+          {Measured serialisation overhead across Protobuf and FlatBuffers along the full send path and chose the batching strategy from the measurements; implemented virtual-clock synchronisation across emulated devices and fixed the connection-cleanup and device-failure deadlocks that appeared only at scale.}
       \resumeItemListEnd
 
     \resumeSubheading
       {Flux-DT --- Elastic, Preemption-Tolerant Runtime for Stateful Workloads on Reclaimable Compute}{\textbf{MSc by Research Thesis}}
-      {University of Edinburgh --- sole author: problem formulation, design, implementation, evaluation}{Sep 2025 -- Present}
+      {University of Edinburgh --- sole author}{Sep 2025 -- Present}
       \resumeItemListStart
         \resumeItem{State that must survive preemption}
-          {Existing compute-harvesting designs assume the harvesting workload is stateless and disposable, so reclaiming its capacity means killing it. Flux-DT targets a workload that is neither: it carries scene state that must survive interruption. The runtime lets it run on bursty, reclaimable GPU capacity without violating the priority tenant's guarantees or corrupting its own state.}
-        \resumeItem{Graded response instead of eviction}
-          {Designed and implemented a control loop that answers resource pressure with an ordered set of actions --- relocate, reduce fidelity within bounds the priority workload tolerates, then suspend and resume --- on the timescale the priority tenant imposes, rather than a single all-or-nothing eviction decision.}
-        \resumeItem{Placement heuristic and shedding order}
-          {Formulated work placement as a joint objective across mutually interfering units and designed a \textbf{greedy heuristic} that decides which work is worth doing under interference; the same ranking determines what is shed first when compute is reclaimed mid-solve, because the decision must return faster than an exact solver could.}
+          {Existing compute-harvesting designs assume the harvesting workload is stateless and disposable. Built a runtime for a workload that is neither: it holds state that must survive interruption, so it can run on bursty, reclaimable capacity without violating the priority tenant's guarantees or corrupting its own state.}
+        \resumeItem{Near-real-time control policy}
+          {Designed and implemented a control loop that answers resource pressure with a graded set of actions --- relocation, fidelity reduction, suspend and resume --- rather than a single eviction decision, on the timescale the priority workload imposes.}
+        \resumeItem{Scheduling heuristic and shedding order}
+          {Formulated work placement as a joint objective across interfering units and \textbf{designed a greedy heuristic} to decide which work is worth doing; the same ranking determines the shedding order when compute is reclaimed mid-solve.}
       \resumeItemListEnd
 
     \resumeSubheading
-      {EmuRAN --- Scalable, Cost-Effective Cloud-based Emulation System}{ACM MobiCom'26}
-      {University of Edinburgh + Microsoft Research --- \textbf{owned the end-to-end evaluation}}{Conditionally Accepted}
+      {EmuRAN --- Scalable, Cost-Effective Cloud-based RAN Emulation System}{MobiCom 2026}
+      {Research Assistant; \textbf{owned the end-to-end evaluation}}{Conditionally Accepted}
       \resumeItemListStart
-        \resumeItem{Operating an emulator at cloud scale}
-          {Deployed and operated the system on public cloud across \textbf{130 instances and 6{,}400 CPU cores}, emulating 10{,}000 mobile devices and 10{,}000 base stations --- two orders of magnitude beyond existing software solutions.}
-        \resumeItem{Fidelity, not just scale}
-          {Designed and ran the evaluation campaign: fidelity against real hardware (contention-based random-access timelines, iperf3 throughput comparison, per-slot completion-time distributions) and scalability (time-dilation behaviour against node count and under constrained compute), establishing that the system behaves correctly rather than merely running large.}
+        \resumeItem{Cloud deployment at scale}
+          {Deployed and operated the emulator on public cloud across \textbf{130 instances and 6{,}400 CPU cores}, emulating 10{,}000 mobile devices and 10{,}000 base stations, two orders of magnitude larger than existing software solutions.}
+        \resumeItem{Fidelity and scalability evaluation}
+          {Designed and ran the evaluation campaign: fidelity against real hardware (random-access timelines, iperf3 throughput, per-slot completion-time distributions) and scalability under node count and constrained compute, establishing the system behaves correctly rather than merely running at scale.}
       \resumeItemListEnd
 
     \resumeSubheading
       {CoSenseAQ --- LLVM Auto-Quantization from Sensor Specifications}{Under Submission}
-      {University of Edinburgh, ICSA --- \textbf{first author}, supervised by Dr.\ Antonio Barbalace}{Apr 2024 -- May 2025}
+      {Research Assistant, ICSA; \textbf{first author}}{Apr 2024 -- May 2025}
       \resumeItemListStart
-        \resumeItem{Compiler-level optimisation from out-of-band information}
-          {Built an LLVM auto-quantization framework driven by sensor value ranges that a compiler cannot recover from source alone, performing variable-range analysis and type shrinkage to reduce code size and execution time on embedded targets.}
+        \resumeItem{Compiler-level optimisation}
+          {Built an LLVM auto-quantization framework driven by information a compiler cannot recover from source alone, using variable-range analysis and type shrinkage to reduce code size and execution time on embedded targets; low-level C/C++ and cross-compilation toolchain work throughout.}
         \resumeItem{Measurement on real hardware}
-          {Evaluated on ARM Cortex-M0 and Cortex-A53, measuring power, performance and area; low-level C/C++ and cross-compilation toolchain work throughout. Drove the work from problem formulation to manuscript.}
+          {Evaluated on ARM Cortex-M0 and Cortex-A53, measuring power, performance and area. Drove the work from problem formulation through implementation and evaluation to manuscript.}
       \resumeItemListEnd
 
   \resumeSubHeadingListEnd
