@@ -1,0 +1,101 @@
+%-------------------------------------------
+% Yufeng (Alex) Xia - Code Sample / Repository Summary
+% Attachment 3 for the HKUST iSING Lab application
+%-------------------------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\input{preamble}
+
+\usepackage{booktabs}
+
+\begin{document}
+
+\begin{center}
+  {\Large\textbf{Repository Summary --- Code Sample}}\\[2pt]
+  {\small Yufeng (Alex) Xia \quad$\cdot$\quad \href{mailto:yufeng.xia@ed.ac.uk}{yufeng.xia@ed.ac.uk} \quad$\cdot$\quad University of Edinburgh}
+\end{center}
+
+\vspace{6pt}
+
+%-----------------------------------------
+\section{Primary Repository: Morphling}
+
+\begin{itemize}[leftmargin=*]
+  \skillrow{URL}{\href{https://github.com/netsys-edinburgh/morphling}{\texttt{https://github.com/netsys-edinburgh/morphling}}}
+  \skillrow{What it is}{An emulator for distributed machine-learning training on heterogeneous edge devices. It runs \textit{unmodified} training scripts against a unified backend --- real or emulated --- by intercepting backend dispatch calls, fitting performance models from real measurements, decoupling memory demand from device count, and driving execution on event-driven virtual time. This makes large-scale what-if studies possible without owning a physical device fleet.}
+  \skillrow{Status}{Research artifact of \textit{Morphling: Emulator for Distributed Machine Learning at the Edge}, EdgeSys'26 (co-located with ACM MobiSys 2026), \textbf{Best Paper Award}. DOI \href{https://doi.org/10.1145/3812836.3814779}{10.1145/3812836.3814779}.}
+  \skillrow{Scale}{$\sim$18{,}000 lines of C++/CUDA under \texttt{csrc/} plus a Python surface; CMake build; CI covering build, formatting, CodeQL, protobuf breaking-change and numerical-consistency checks.}
+  \skillrow{My share}{\textbf{91 commits} out of 519 in the repository, merged through reviewed pull requests. I was responsible for one clearly delimited subsystem: \textbf{the inter-device transport data plane and its performance}.}
+\end{itemize}
+
+\vspace{2pt}
+
+\subsection*{What I built}
+
+\begin{itemize}[leftmargin=*]
+  \item\small{\textbf{Event-driven transport (\texttt{csrc/backend/proxy\_svr.cc}, \texttt{proxy\_cli.cc}, \texttt{server\_base.cpp}).}
+    The proxy server and client that carry tensor traffic between emulated devices, built on libevent: non-blocking connection handling, event-loop threads, batched send/receive accounting, and connection lifecycle management. Emulation fidelity is bounded by this path --- if a transfer costs more than the device being emulated would have spent, the emulated timeline is wrong --- so the work was fundamentally about driving transfer cost down and making it predictable.}
+
+  \item\small{\textbf{Zero-copy and pinned-memory path.}
+    A \texttt{CudaPinnedMemoryPool} that allocates \texttt{cudaHostAlloc} buffers in power-of-two buckets and recycles them, removing per-transfer allocation from the hot path; zero-copy scatter-gather buffers (\texttt{evbuffer\_add\_reference} with \texttt{shared\_ptr} cleanup) so that tensor payloads are transmitted without staging copies; CUDA host registration and worker-thread pinning, each introduced only after a dedicated microbenchmark showed it paid for itself (\texttt{tests/cpp/test\_cuda\_host\_register\_tensor.cpp}).}
+
+  \item\small{\textbf{Serialisation cost study.}
+    Instrumented the full send path (serialise / compute size / transmit) and compared Protocol Buffers against FlatBuffers under realistic message sizes, then chose the framing and batching strategy from the measurements rather than from folklore. The finding that FlatBuffers is \textit{slower} in the Python path --- contrary to the usual assumption --- is documented in the repository.}
+
+  \item\small{\textbf{Distributed virtual-clock synchronisation.}
+    Virtual time must stay consistent across emulated devices or the emulator silently produces wrong results. I implemented the synchronisation mechanism and compared alternative strategies (\texttt{csrc/base/virtual\_clock.cc}, \texttt{scripts/sync\_virtual\_time.py}, \texttt{scripts/compare\_sync\_strategies.py}).}
+
+  \item\small{\textbf{Failure-mode debugging at scale.}
+    Diagnosed and fixed deadlocks that appeared only under device failure and connection teardown, and the device-scale-zero condition --- the class of bug that does not reproduce on two nodes.}
+
+  \item\small{\textbf{Measurement tooling.}
+    Per-device timeline and Gantt visualisation of the emulated execution (\texttt{scripts/timeline\_plot.py}, \texttt{scripts/run\_mixed\_devices.py}), used both for debugging and for figures in the paper.}
+\end{itemize}
+
+\vspace{2pt}
+
+\subsection*{Where to look}
+
+{\small The following files carry the bulk of my contribution and are the ones I would point a reviewer to:}
+
+\vspace{3pt}
+{\small
+\begin{tabular}{@{}llr@{}}
+\toprule
+\textbf{File} & \textbf{Role} & \textbf{My churn} \\
+\midrule
+\texttt{csrc/backend/proxy\_svr.cc}   & Event-driven proxy server, batching, scheduling hooks & +964 / -269 \\
+\texttt{csrc/backend/server\_base.cpp} & Connection layer, send/receive accounting & +743 / -228 \\
+\texttt{csrc/backend/proxy\_cli.cc}   & Client transport, \texttt{CudaPinnedMemoryPool} & +510 / -156 \\
+\texttt{csrc/backend/device\_tracker.cc} & Distributed device state tracking & +387 / -48 \\
+\texttt{csrc/base/virtual\_clock.cc}  & Virtual-time synchronisation & --- \\
+\texttt{tests/cpp/test\_cuda\_host\_register\_tensor.cpp} & Pinned-memory microbenchmark & +407 / -89 \\
+\bottomrule
+\end{tabular}
+}
+
+\vspace{6pt}
+
+{\small My commits can be listed directly with
+\texttt{git log --author="Yufeng Xia" --author="xyf2002"}. Pull requests merged from my branches include
+\texttt{benchmark}, \texttt{throughput-optimization}, \texttt{fix-device-scale-zero} and \texttt{jyang-opt}.}
+
+\vspace{4pt}
+
+{\small \textbf{Documentation I wrote for this repository:} analyses of serialisation performance, virtual-time synchronisation strategies, connection cleanup, device-failure deadlocks and message-size behaviour. I treat a non-obvious performance result as unfinished until it is written down, and these documents are the record of that.}
+
+%-----------------------------------------
+\section{Secondary Repository: TensorOps (sole author)}
+
+\begin{itemize}[leftmargin=*]
+  \skillrow{URL}{\href{https://github.com/xyf2002/tensor-compiler}{\texttt{https://github.com/xyf2002/tensor-compiler}}}
+  \skillrow{What it is}{A multi-target MLIR tensor compiler with operator fusion, written entirely by me. It defines a \texttt{TensorOps} dialect (\texttt{ten.matmul}, \texttt{ten.relu}, \texttt{ten.add}), fuses matmul+relu at the dialect level, and lowers through Linalg either to LLVM for CPU JIT execution or to NVVM/ROCDL, ending in PTX and cubin launched through the CUDA Driver API.}
+  \skillrow{Why included}{Morphling shows how I work inside a large shared codebase under review; TensorOps shows what I produce alone, end to end --- dialect design, pass pipeline, GPU backend, benchmark harness and documentation --- which is the ability the iSING Lab call asks for.}
+\end{itemize}
+
+\vspace{4pt}
+
+{\small Further code, including the LLVM auto-quantization work behind my first-author manuscript \textit{CoSenseAQ}, is available on request.}
+
+\end{document}
