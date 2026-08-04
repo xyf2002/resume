@@ -1,0 +1,55 @@
+%-----------RESEARCH AND PROJECT EXPERIENCE-----------------
+\section{Research and Project Experience}
+  \resumeSubHeadingListStart
+
+    \resumeSubheading
+      {Flux-DT --- Elastic, Preemption-Tolerant Digital Twin Runtime for AI-RAN}{\textbf{MSc by Research Thesis}}
+      {University of Edinburgh --- sole author}{Sep 2025 -- Present}
+      \resumeItemListStart
+        \resumeItem{Sharing RAN compute with a stateful workload}
+          {Built a runtime that lets a radio digital twin run on bursty spare compute in the radio path , holding its scene state across interruption without violating live RAN priorities. Prior compute-sharing designs assume the co-located workload is disposable.}
+        \resumeItem{Near-real-time control policy}
+          {Designed and implemented the control loop that answers radio-driven resource pressure on the timescale the radio imposes.}
+        \resumeItem{Multi-cell fidelity placement algorithm}
+          {Formulated fidelity placement as a joint objective across co-channel cells and \textbf{designed a greedy heuristic} deciding which tiles are worth solving under interference}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {EmuRAN --- Scalable, Cost-Effective Cloud-based RAN Emulation System}{MobiCom 2026}
+      {Research Assistant; \textbf{owned the end-to-end evaluation}}{Conditionally Accepted}
+      \resumeItemListStart
+        \resumeItem{Public cloud operation}
+          {Deployed and operated the emulator on public cloud infrastructure, emulating over 10,000 mobile devices, two orders of magnitude larger in scale than existing software solutions.}
+        \resumeItem{Fidelity and scalability validation}
+          {Designed and ran the evaluation campaign, covering both fidelity against a real RAN and scaling behaviour under constrained compute.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Weaver --- Foundation Model Training over AI-RAN Compute Infrastructure}{Under Submission}
+      {Research Assistant; spare-compute controller evaluation and large-scale experiments}{2024 -- 2026}
+      \resumeItemListStart
+        \resumeItem{RAN-centric spare compute control}
+          {Evaluated the controller deciding how much accelerator capacity an AI workload may harvest from shared RAN infrastructure, a near-real-time resource-allocation problem on GPU-accelerated hardware. On a multi-site testbed it harvests up to \textbf{83\%} of spare compute without degrading live radio performance.}
+        \resumeItem{PHY experiments and large-scale training runs}
+          {Ran PHY-layer experiments and GPU profiling to characterise the interference between training workloads and radio processing, and carried out the large-scale foundation-model training runs used in the evaluation.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {CoSenseAQ --- LLVM Auto-Quantization from Sensor Specifications}{Under Submission}
+      {Research Assistant, ICSA; first author}{Apr 2024 -- May 2025}
+      \resumeItemListStart
+        \resumeItem{Sensor specifications as compiler input}
+          {Built an LLVM auto-quantization framework that drives optimisation from sensor specifications, information a compiler cannot recover from source alone, reducing code size and execution time on embedded targets.}
+        \resumeItem{Embedded evaluation}
+          {Evaluated on embedded ARM devices, measuring speedup, code size reduction and lower power consumption.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Morphling --- Emulator for Distributed Machine Learning at the Edge}{EdgeSys 2026}
+      {Research Assistant; \textbf{Best Paper Award}}{Oct 2025 -- Mar 2026}
+      \resumeItemListStart
+        \resumeItem{Measurement-driven edge emulation}
+          {Contributed to a measurement-driven emulator for distributed ML training on heterogeneous edge devices, supporting up to 1,800 emulated devices on a single GPU server with low latency and thermal error.}
+      \resumeItemListEnd
+
+  \resumeSubHeadingListEnd

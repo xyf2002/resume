@@ -1,0 +1,100 @@
+%-------------------------------------------
+% Yufeng (Alex) Xia - CV tailored for
+% General industry CV: wireless systems, systems for AI, large-scale emulation
+%-------------------------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage{lmodern}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+\titleformat{\section}{
+  \vspace{-4pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-5pt}]
+
+% Ensure the generated PDF is machine readable / ATS parsable
+\pdfgentounicode=1
+
+%-------------------------
+% Custom commands
+\newcommand{\resumeItem}[2]{
+  \item\small{
+    \textbf{#1}{: #2 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \vspace{-1pt}\item
+    \begin{tabular*}{0.97\textwidth}[t]{p{0.68\textwidth}@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small #3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-5pt}
+}
+
+\newcommand{\resumeItemPlain}[1]{
+  \item\small{
+    {#1 \vspace{-2pt}}
+  }
+}
+
+\newcommand{\resumeSubItem}[2]{\resumeItem{#1}{#2}\vspace{-4pt}}
+
+% One-line skill row: label + content
+\newcommand{\skillrow}[2]{
+  \item\small{\textbf{#1}\hspace{0.5em}#2 \vspace{-3pt}}
+}
+
+% Publication entry: title (left, bold) + venue (right), author list below in italic
+\newcommand{\pubentry}[3]{%
+  \begin{tabular*}{\textwidth}[t]{@{}p{0.76\textwidth}@{\extracolsep{\fill}}r@{}}
+    \small\textbf{#1} & \small\textit{#2}
+  \end{tabular*}\par\vspace{-2pt}
+  {\small\textit{#3}}\par\vspace{1.5pt}
+}
+
+% Topic grouping header inside the publication list
+\newcommand{\pubgroup}[1]{%
+  \vspace{2pt}{\small\textbf{\textit{#1}}}\par\vspace{2pt}
+}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=*]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-5pt}}
+
+%-------------------------------------------
+\begin{document}
+
+\input{header}
+\input{education}
+\input{skills}
+\input{experience}
+\input{industry-experience}
+\input{publications}
+\input{extras}
+
+\end{document}

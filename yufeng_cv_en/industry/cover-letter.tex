@@ -1,0 +1,124 @@
+%-------------------------------------------
+% Yufeng (Alex) Xia - Cover Letter
+% Keysight: O-RAN Digital Twin / AI-ML RAN Optimisation Internship
+%-------------------------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage[empty]{fullpage}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage[hidelinks]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{lmodern}
+\usepackage{parskip}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\addtolength{\oddsidemargin}{-0.5in}
+\addtolength{\evensidemargin}{-0.5in}
+\addtolength{\textwidth}{1in}
+\addtolength{\topmargin}{-.5in}
+\addtolength{\textheight}{1.0in}
+
+\urlstyle{same}
+\raggedright
+\setlength{\tabcolsep}{0in}
+\pdfgentounicode=1
+
+\begin{document}
+
+%----------HEADING (matches CV)-----------------
+\begin{tabular*}{\textwidth}{l@{\extracolsep{\fill}}r}
+  \textbf{\href{https://www.linkedin.com/in/yufeng-xia-12648a25b}{\Large Yufeng (Alex) Xia}} & Email: \href{mailto:yufeng.xia@ed.ac.uk}{yufeng.xia@ed.ac.uk} \\
+  \href{https://www.linkedin.com/in/yufeng-xia-12648a25b}{linkedin.com/in/yufeng-xia-12648a25b} & Mobile: \href{tel:+447918155093}{(+44) 7918155093} \\
+  Edinburgh, UK & \href{https://xyf2002.github.io/}{xyf2002.github.io} \\
+\end{tabular*}
+
+\vspace{6pt}
+\hrule
+\vspace{14pt}
+
+
+\vspace{8pt}
+
+Keysight Technologies \\
+South Queensferry, Edinburgh, United Kingdom
+
+\vspace{10pt}
+
+Dear Hiring Manager,
+
+\vspace{4pt}
+
+I am writing to apply for the internship on O-RAN digital twins and AI/ML-driven
+RAN optimisation. My MSc by Research at the University of Edinburgh, supervised
+by Prof.\ Mahesh K.\ Marina, sits on precisely the two halves that this role
+combines. I build the digital twin and emulation platforms on which RAN
+algorithms are developed and validated, and I design the near-real-time policies
+that decide how those platforms use shared compute. In my work these have never
+been two separate tasks, which is why a role that asks for both is the one I want.
+
+My thesis project, Flux-DT, is an elastic digital twin runtime for AI-RAN.
+Instead of observing a network from the outside, the twin runs inside the radio
+path of a live OpenAirInterface 5G stack, so that real signalling and user
+traffic flow through a ray-traced channel model computed across GPU workers. On
+top of it I designed a control loop that reacts to radio-driven resource pressure
+on the timescale the radio imposes: it relocates work to less contended machines,
+lowers simulation fidelity only within bounds that live radio procedures
+tolerate, and suspends and resumes the twin when no further reduction is safe.
+The placement decision itself is a joint objective across co-channel cells that I
+solve with a greedy heuristic, because the decision has to be made faster than an
+exact solver could return.
+Getting this right meant treating the live RAN as the priority workload at every
+step, and treating the twin's own state as something that must survive being
+interrupted. I understand these to be the same constraints that a production
+digital twin platform has to respect.
+
+I have also validated systems of this kind at scale. On EmuRAN, a cloud-based
+RAN emulation system conditionally accepted at ACM MobiCom 2026, I owned the
+evaluation: I deployed and operated the emulator on public cloud at 130 instances
+and 6,400 CPU cores, emulating 10,000 mobile devices and 10,000 base stations,
+and I designed the fidelity and scalability experiments that established it
+behaves like a real RAN rather than merely running at scale. My machine learning
+systems work is closely connected to this. Morphling, an emulator for evaluating
+distributed machine learning training on heterogeneous edge devices, received the
+Best Paper Award at EdgeSys 2026, and on Weaver I evaluated a controller that
+decides how much accelerator capacity an AI workload may harvest from shared RAN
+infrastructure without degrading radio performance. Alongside this, my C and C++
+experience comes from compiler research, where I built an LLVM-based
+auto-quantization framework and evaluated it on embedded ARM devices.
+
+What draws me to Keysight specifically is that this role puts algorithm
+development and platform work in the same place. Developing AI and machine
+learning algorithms for prioritised O-RAN use cases, and then validating them on
+digital twins and emulation platforms instead of in a conventional lab, is
+exactly the loop I have been building the tools for, and I would much rather
+close that loop against real equipment than in simulation alone. The near-real-time
+use cases interest me most --- traffic steering, load balancing and energy saving,
+where a decision has to respect interference and load conditions within a deadline
+rather than converge eventually. My control-loop work has been at exactly that
+timescale, though outside a RIC; the natural next step is to develop such logic as
+an xApp against the near-RT RIC and validate it on a digital twin, which is what
+this role does. Applying AI and machine learning to the optimisation of cellular
+network resources, in the context of 5G and future 6G radio access, is the
+direction I intend to build my career in.
+
+I graduate in September 2026 and am available for a full-time internship from
+then. I am already based in Edinburgh, so I can work on site without relocating.
+I would welcome the opportunity to discuss how I could contribute to the team,
+and I am happy to talk through any of the systems above in more detail.
+
+\vspace{10pt}
+
+Yours faithfully,
+
+\vspace{14pt}
+
+\textbf{Yufeng Xia}
+
+\end{document}
