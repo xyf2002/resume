@@ -9,7 +9,7 @@
         \resumeItem{Harvesting accelerators from a latency-critical tenant}
           {Evaluated the controller that decides how much accelerator capacity an AI workload may harvest from infrastructure shared with a latency-critical tenant, a near-real-time resource-allocation problem on GPU-accelerated hardware. On a multi-site testbed it harvests up to \textbf{83\%} of the available spare compute without degrading the co-tenant's performance.}
         \resumeItem{Roofline analysis and deadline measurement}
-          {Ran the GPU profiling and roofline analysis showing the priority workload's kernels are memory-bandwidth-bound while training is compute-bound --- the asymmetry that makes SM-level co-location possible; instrumented its scheduler to measure per-deadline completion, and carried out the large-scale distributed training runs used in the evaluation.}
+          {Ran the GPU profiling and roofline analysis showing the priority workload's kernels are memory-bandwidth-bound while training is compute-bound, the asymmetry that makes SM-level co-location possible; instrumented its scheduler to measure per-deadline completion, and carried out the large-scale distributed training runs used in the evaluation.}
       \resumeItemListEnd
 
     \resumeSubheading
@@ -17,9 +17,7 @@
       {Research Assistant; \textbf{Best Paper Award}; owned the C++ transport data plane}{Oct 2025 -- Mar 2026}
       \resumeItemListStart
         \resumeItem{Inter-device transport}
-          {Built the event-driven (libevent) proxy client/server carrying tensor traffic between emulated devices --- \textbf{2{,}400 lines of C++} in an 18k-line C++/CUDA codebase. Emulation fidelity is bounded by this path, so transfer cost had to be driven to the microsecond level.}
-        \resumeItem{Zero-copy and memory-path optimisation}
-          {Designed a bucketed \texttt{cudaHostAlloc} pinned-memory pool and zero-copy scatter-gather buffers to remove per-transfer allocation and staging copies; added CUDA host registration and thread pinning, each validated with dedicated microbenchmarks.}
+          {Built the event-driven (libevent) proxy client/server carrying tensor traffic between emulated devices: \textbf{2{,}400 lines of C++} in an 18k-line C++/CUDA codebase. Emulation fidelity is bounded by this path, so transfer cost had to be driven to the microsecond level.}
         \resumeItem{Serialisation cost and distributed correctness}
           {Measured serialisation overhead across Protobuf and FlatBuffers along the full send path and chose the batching strategy from the measurements; implemented virtual-clock synchronisation across emulated devices and fixed the connection-cleanup and device-failure deadlocks that appeared only at scale.}
       \resumeItemListEnd
@@ -31,7 +29,7 @@
         \resumeItem{State that must survive preemption}
           {Existing compute-harvesting designs assume the harvesting workload is stateless and disposable. Built a runtime for a workload that is neither: it holds state that must survive interruption, so it can run on bursty, reclaimable capacity without violating the priority tenant's guarantees or corrupting its own state.}
         \resumeItem{Near-real-time control policy}
-          {Designed and implemented a control loop that answers resource pressure with a graded set of actions --- relocation, fidelity reduction, suspend and resume --- rather than a single eviction decision, on the timescale the priority workload imposes.}
+          {Designed and implemented a control loop that answers resource pressure with a graded set of actions (relocation, fidelity reduction, suspend and resume) rather than a single eviction decision, on the timescale the priority workload imposes.}
         \resumeItem{Scheduling heuristic and shedding order}
           {Formulated work placement as a joint objective across interfering units and \textbf{designed a greedy heuristic} to decide which work is worth doing; the same ranking determines the shedding order when compute is reclaimed mid-solve.}
       \resumeItemListEnd

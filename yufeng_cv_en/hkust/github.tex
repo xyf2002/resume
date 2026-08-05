@@ -7,95 +7,79 @@
 
 \input{preamble}
 
-\usepackage{booktabs}
-
 \begin{document}
 
 \begin{center}
-  {\Large\textbf{Repository Summary --- Code Sample}}\\[2pt]
+  {\Large\textbf{Repository Summary, Code Sample}}\\[2pt]
   {\small Yufeng (Alex) Xia \quad$\cdot$\quad \href{mailto:yufeng.xia@ed.ac.uk}{yufeng.xia@ed.ac.uk} \quad$\cdot$\quad University of Edinburgh}
 \end{center}
 
 \vspace{6pt}
 
+{\small Two repositories, chosen to show two different things: what I build alone and own end to end, and how I work inside a large shared codebase under review.}
+
+\vspace{4pt}
+
 %-----------------------------------------
-\section{Primary Repository: Morphling}
+\section{Flux-DT, built on OCUDU (sole author)}
 
 \begin{itemize}[leftmargin=*]
-  \skillrow{URL}{\href{https://github.com/netsys-edinburgh/morphling}{\texttt{https://github.com/netsys-edinburgh/morphling}}}
-  \skillrow{What it is}{An emulator for distributed machine-learning training on heterogeneous edge devices. It runs \textit{unmodified} training scripts against a unified backend --- real or emulated --- by intercepting backend dispatch calls, fitting performance models from real measurements, decoupling memory demand from device count, and driving execution on event-driven virtual time. This makes large-scale what-if studies possible without owning a physical device fleet.}
-  \skillrow{Status}{Research artifact of \textit{Morphling: Emulator for Distributed Machine Learning at the Edge}, EdgeSys'26 (co-located with ACM MobiSys 2026), \textbf{Best Paper Award}. DOI \href{https://doi.org/10.1145/3812836.3814779}{10.1145/3812836.3814779}.}
-  \skillrow{Scale}{$\sim$18{,}000 lines of C++/CUDA under \texttt{csrc/} plus a Python surface; CMake build; CI covering build, formatting, CodeQL, protobuf breaking-change and numerical-consistency checks.}
-  \skillrow{My share}{\textbf{91 commits} out of 519 in the repository, merged through reviewed pull requests. I was responsible for one clearly delimited subsystem: \textbf{the inter-device transport data plane and its performance}.}
+  \skillrow{URL}{\href{https://github.com/xyf2002/OCUDU/tree/evaluation}{\texttt{github.com/xyf2002/OCUDU/tree/evaluation}}}
+  \skillrow{What it is}{My MSc by Research thesis system, built by modifying OCUDU, the Linux Foundation's open-source 5G CU/DU stack (C++17, 3GPP and O-RAN compliant). I added a GPU ray-tracing digital twin \textit{into the radio path of the live stack}, together with the runtime that lets it survive running on compute it does not own.}
+  \skillrow{The problem}{Spare compute in a RAN is real but reclaimable at any moment, and a radio twin is stateful, so killing it loses scene state and progress. The runtime therefore has to degrade rather than die: admit work selectively, drop fidelity in graded steps, checkpoint, and hand capacity back on the timescale the live radio imposes.}
+  \skillrow{Stack}{\textbf{C++17} (OCUDU CU/DU stack, CMake) with a \textbf{Python 3.10} control plane packaged as \texttt{ocudu-gpu-backend}; \textbf{NVIDIA Sionna RT} for GPU ray tracing; NumPy for the channel maths (CIR collapse, zero-forcing, SINR); a hand-written TCP transport (length-framed messages, \texttt{TCP\_NODELAY}, binary payload encoding) between control plane and GPU workers; \texttt{concurrent.futures} and threading for the worker pool; \texttt{mypy --strict} and pytest across the package.}
+  \skillrow{Scale and ownership}{Roughly the 500 most recent commits on this branch are mine, sole-authored.}
 \end{itemize}
 
 \vspace{2pt}
-
 \subsection*{What I built}
 
 \begin{itemize}[leftmargin=*]
-  \item\small{\textbf{Event-driven transport (\texttt{csrc/backend/proxy\_svr.cc}, \texttt{proxy\_cli.cc}, \texttt{server\_base.cpp}).}
-    The proxy server and client that carry tensor traffic between emulated devices, built on libevent: non-blocking connection handling, event-loop threads, batched send/receive accounting, and connection lifecycle management. Emulation fidelity is bounded by this path --- if a transfer costs more than the device being emulated would have spent, the emulated timeline is wrong --- so the work was fundamentally about driving transfer cost down and making it predictable.}
+  \resumeItem{Admission and selection (\texttt{gpu\_backend/admission/})}
+    {A joint admission objective across co-channel cells, solved with a greedy selection heuristic against per-tier fidelity thresholds, with an admission cache for repeated decisions and baseline policies to compare against. The same ranking that decides which tiles are worth tracing under interference also gives the order in which work is shed when compute is reclaimed mid-round.}
+  \resumeItem{Solver orchestration (\texttt{gpu\_backend/solve/})}
+    {Round-based partitioned solving with an explicit runtime plan, so a round can be cut short without losing what it already produced. Hedged dispatch lets a replica that lands early end the round instead of waiting on a straggler.}
+  \resumeItem{Worker pool and health (\texttt{gpu\_backend/workers/})}
+    {Dispatch balancing across GPU workers, per-worker batch timing so a worker is charged for its own work rather than the round it sat in, and health and timeout handling that reclaims GPU slots from a stalled worker instead of leaking them.}
+  \resumeItem{Checkpointing and recovery (\texttt{gpu\_backend/checkpoint/})}
+    {Checkpoint store, on-disk layout and validation, plus bounded recovery when the backend disappears underneath a running twin. This is what makes preemption survivable rather than fatal.}
+  \resumeItem{Scene caching and pruning (\texttt{gpu\_backend/scene\_processing/}, \texttt{cache/})}
+    {Scene-identity hashing, mesh trimming and geometry subsetting, so an unchanged scene is recognised before it is re-hashed and tiles that are never traced are never priced.}
+  \resumeItem{Channel pipeline and integration (\texttt{gpu\_backend/channel/}, \texttt{servers/})}
+    {Ray-traced bundles turned into interference and SINR (zero-forcing, constellation, frame processing) and applied at the RF frontend of the live stack, behind control, worker, cache and admin services.}
+  \resumeItem{Evaluation harness (\texttt{evaluation/})}
+    {Replays measured RAN GPU occupancy as a contending load beside the twin, and sweeps elasticity, fidelity, multi-cell contention and recovery, with the plotting that turns those runs into thesis figures.}
+\end{itemize}
 
-  \item\small{\textbf{Zero-copy and pinned-memory path.}
-    A \texttt{CudaPinnedMemoryPool} that allocates \texttt{cudaHostAlloc} buffers in power-of-two buckets and recycles them, removing per-transfer allocation from the hot path; zero-copy scatter-gather buffers (\texttt{evbuffer\_add\_reference} with \texttt{shared\_ptr} cleanup) so that tensor payloads are transmitted without staging copies; CUDA host registration and worker-thread pinning, each introduced only after a dedicated microbenchmark showed it paid for itself (\texttt{tests/cpp/test\_cuda\_host\_register\_tensor.cpp}).}
+\vspace{4pt}
 
-  \item\small{\textbf{Serialisation cost study.}
-    Instrumented the full send path (serialise / compute size / transmit) and compared Protocol Buffers against FlatBuffers under realistic message sizes, then chose the framing and batching strategy from the measurements rather than from folklore. The finding that FlatBuffers is \textit{slower} in the Python path --- contrary to the usual assumption --- is documented in the repository.}
+%-----------------------------------------
+\section{Morphling, shared codebase and reviewed contributions}
 
-  \item\small{\textbf{Distributed virtual-clock synchronisation.}
-    Virtual time must stay consistent across emulated devices or the emulator silently produces wrong results. I implemented the synchronisation mechanism and compared alternative strategies (\texttt{csrc/base/virtual\_clock.cc}, \texttt{scripts/sync\_virtual\_time.py}, \texttt{scripts/compare\_sync\_strategies.py}).}
-
-  \item\small{\textbf{Failure-mode debugging at scale.}
-    Diagnosed and fixed deadlocks that appeared only under device failure and connection teardown, and the device-scale-zero condition --- the class of bug that does not reproduce on two nodes.}
-
-  \item\small{\textbf{Measurement tooling.}
-    Per-device timeline and Gantt visualisation of the emulated execution (\texttt{scripts/timeline\_plot.py}, \texttt{scripts/run\_mixed\_devices.py}), used both for debugging and for figures in the paper.}
+\begin{itemize}[leftmargin=*]
+  \skillrow{URL}{\href{https://github.com/netsys-edinburgh/morphling}{\texttt{github.com/netsys-edinburgh/morphling}}}
+  \skillrow{What it is}{An emulator for distributed machine-learning training on heterogeneous edge devices. It runs \textit{unmodified} training scripts against a unified real-or-emulated backend, fits performance models from real measurements, and drives execution on event-driven virtual time, so large-scale what-if studies need no physical device fleet.}
+  \skillrow{Status}{Research artifact of \textit{Morphling: Emulator for Distributed Machine Learning at the Edge}, EdgeSys'26 (co-located with ACM MobiSys 2026), \textbf{Best Paper Award}. DOI \href{https://doi.org/10.1145/3812836.3814779}{10.1145/3812836.3814779}. $\sim$18{,}000 lines of C++/CUDA plus a Python surface, CMake, CI with CodeQL and numerical-consistency checks.}
+  \skillrow{Stack}{\textbf{C++17 and CUDA} built with CMake against \textbf{LibTorch} and the CUDA Toolkit, exposed to \textbf{Python} through a native extension; \textbf{libevent} for the event-driven transport; \textbf{Protocol Buffers} (vendored, with FlatBuffers evaluated against it) for the wire format; pinned host memory via \texttt{cudaHostAlloc}; CI covering build, formatting, CodeQL, protobuf breaking-change and numerical-consistency checks.}
+  \skillrow{My share}{\textbf{91 of 519 commits}, merged through reviewed pull requests, over one clearly delimited subsystem: \textbf{the inter-device transport data plane and its performance}.}
 \end{itemize}
 
 \vspace{2pt}
-
-\subsection*{Where to look}
-
-{\small The following files carry the bulk of my contribution and are the ones I would point a reviewer to:}
-
-\vspace{3pt}
-{\small
-\begin{tabular}{@{}llr@{}}
-\toprule
-\textbf{File} & \textbf{Role} & \textbf{My churn} \\
-\midrule
-\texttt{csrc/backend/proxy\_svr.cc}   & Event-driven proxy server, batching, scheduling hooks & +964 / -269 \\
-\texttt{csrc/backend/server\_base.cpp} & Connection layer, send/receive accounting & +743 / -228 \\
-\texttt{csrc/backend/proxy\_cli.cc}   & Client transport, \texttt{CudaPinnedMemoryPool} & +510 / -156 \\
-\texttt{csrc/backend/device\_tracker.cc} & Distributed device state tracking & +387 / -48 \\
-\texttt{csrc/base/virtual\_clock.cc}  & Virtual-time synchronisation & --- \\
-\texttt{tests/cpp/test\_cuda\_host\_register\_tensor.cpp} & Pinned-memory microbenchmark & +407 / -89 \\
-\bottomrule
-\end{tabular}
-}
-
-\vspace{6pt}
-
-{\small My commits can be listed directly with
-\texttt{git log --author="Yufeng Xia" --author="xyf2002"}. Pull requests merged from my branches include
-\texttt{benchmark}, \texttt{throughput-optimization}, \texttt{fix-device-scale-zero} and \texttt{jyang-opt}.}
-
-\vspace{4pt}
-
-{\small \textbf{Documentation I wrote for this repository:} analyses of serialisation performance, virtual-time synchronisation strategies, connection cleanup, device-failure deadlocks and message-size behaviour. I treat a non-obvious performance result as unfinished until it is written down, and these documents are the record of that.}
-
-%-----------------------------------------
-\section{Secondary Repository: TensorOps (sole author)}
+\subsection*{What I owned}
 
 \begin{itemize}[leftmargin=*]
-  \skillrow{URL}{\href{https://github.com/xyf2002/tensor-compiler}{\texttt{https://github.com/xyf2002/tensor-compiler}}}
-  \skillrow{What it is}{A multi-target MLIR tensor compiler with operator fusion, written entirely by me. It defines a \texttt{TensorOps} dialect (\texttt{ten.matmul}, \texttt{ten.relu}, \texttt{ten.add}), fuses matmul+relu at the dialect level, and lowers through Linalg either to LLVM for CPU JIT execution or to NVVM/ROCDL, ending in PTX and cubin launched through the CUDA Driver API.}
-  \skillrow{Why included}{Morphling shows how I work inside a large shared codebase under review; TensorOps shows what I produce alone, end to end --- dialect design, pass pipeline, GPU backend, benchmark harness and documentation --- which is the ability the iSING Lab call asks for.}
+  \resumeItem{Event-driven transport (\texttt{csrc/backend/proxy\_svr.cc}, \texttt{proxy\_cli.cc}, \texttt{server\_base.cpp})}
+    {The proxy server and client that carry tensor traffic between emulated devices, built on libevent: non-blocking connection handling, event-loop threads, batched send and receive accounting, and connection lifecycle management. Emulation fidelity is bounded by this path, because a transfer that costs more than the emulated device would have spent makes the emulated timeline wrong, so the work was about driving transfer cost down and making it predictable.}
+  \resumeItem{Zero-copy and pinned-memory path}
+    {A \texttt{CudaPinnedMemoryPool} allocating \texttt{cudaHostAlloc} buffers in power-of-two buckets and recycling them, which takes allocation out of the hot path; zero-copy scatter-gather buffers (\texttt{evbuffer\_add\_reference} with \texttt{shared\_ptr} cleanup) so payloads move without staging copies; CUDA host registration and worker-thread pinning, each added only after a dedicated microbenchmark showed it paid for itself.}
+  \resumeItem{Serialisation cost study}
+    {Instrumented the full send path (serialise, compute size, transmit) and compared Protocol Buffers against FlatBuffers at realistic message sizes, then picked the framing and batching strategy from those measurements. FlatBuffers turned out to be \textit{slower} in the Python path, against the usual assumption, and the result is documented in the repository.}
+  \resumeItem{Distributed virtual-clock synchronisation (\texttt{csrc/base/virtual\_clock.cc})}
+    {Virtual time has to stay consistent across emulated devices or the emulator silently produces wrong results. I implemented the synchronisation mechanism and compared alternative strategies against each other.}
+  \resumeItem{Failure modes that only appear at scale}
+    {Diagnosed and fixed deadlocks arising under device failure and connection teardown, and the device-scale-zero condition, the class of bug that never reproduces on two nodes.}
+  \resumeItem{Measurement tooling}
+    {Per-device timeline and Gantt visualisation of emulated execution, used both for debugging and for figures in the paper.}
 \end{itemize}
-
-\vspace{4pt}
-
-{\small Further code, including the LLVM auto-quantization work behind my first-author manuscript \textit{CoSenseAQ}, is available on request.}
 
 \end{document}

@@ -1,0 +1,72 @@
+%-------------------------------------------
+% Yufeng (Alex) Xia - Paper under submission (abstract)
+% Attachment 4 for the HKUST iSING Lab application
+%-------------------------------------------
+
+\documentclass[letterpaper,11pt]{article}
+
+\input{preamble}
+
+\begin{document}
+
+\begin{center}
+  {\Large\textbf{Paper Under Submission, Abstract}}\\[2pt]
+  {\small Yufeng (Alex) Xia \quad$\cdot$\quad \href{mailto:yufeng.xia@ed.ac.uk}{yufeng.xia@ed.ac.uk} \quad$\cdot$\quad University of Edinburgh}
+\end{center}
+
+\vspace{8pt}
+
+{\large\textbf{Weaver: Foundation Model Training over AI-RAN Compute Infrastructure}}
+
+\vspace{4pt}
+
+{\small Leyang Xue, Tianxin Wang, Xin Zhe Khooi, Jiaxun Yang, Dheeraj Mahendiran, \textbf{Yufeng Xia},
+Mun Choon Chan, Myungjin Lee, Mahesh Marina}
+
+\vspace{2pt}
+
+{\small\textit{Under submission. University of Edinburgh, National University of Singapore, and Cisco Research.}}
+
+\vspace{10pt}
+
+\section*{Abstract}
+
+{\small
+The emergence of AI-RAN architectures for future 6G networks envisions deep integration
+between radio access network (RAN) infrastructure and AI workloads. While prior work
+primarily focuses on AI-for-RAN and AI-on-RAN, the potential of AI-and-RAN, sharing RAN
+compute infrastructure with non-RAN (AI) workloads, remains largely unexplored. In this
+paper, we investigate the feasibility of leveraging GPU-accelerated RAN infrastructure to
+support opportunistic training of foundation models (FMs), one of the most compute-intensive
+AI workloads. We conduct the first comprehensive characterization of spare GPU capacity in
+GPU-accelerated RAN systems at both micro-scale (per-slot within a cell site) and macro-scale
+(across sites). Our analysis reveals substantial underutilized compute resources, approximately
+40--85\%, that are temporally bursty within sites yet spatially complementary across sites. To
+efficiently exploit this opportunity in a RAN-safe manner, we present \textbf{Weaver}, a system
+that enables FM training to opportunistically share GPU resources with latency-critical RAN
+workloads while preserving RAN performance. Weaver adopts a RAN-first design with coordinated
+elasticity across system layers. It introduces a RAN-centric spare-compute controller embedded
+in the MAC scheduler to stabilize spare GPU capacity, alongside a two-level elastic FM training
+framework that adapts to dynamic resources across and within sites. Evaluations on an
+O-RAN-aligned 5G NR prototype and multi-site testbed show that Weaver reduces spare-compute
+fluctuations by up to 4.9$\times$ and achieves 2.1--4.2$\times$ higher training throughput than
+baseline approaches while harvesting up to 83\% of available spare compute.
+}
+
+\vspace{12pt}
+
+\section*{My contribution}
+
+\begin{itemize}[leftmargin=*]
+  \item\small{\textbf{Characterisation and profiling.} Ran the GPU profiling and roofline analysis
+    behind the spare-capacity characterisation, showing that RAN kernels are memory-bandwidth-bound
+    while FM training is compute-bound, the asymmetry that makes SM-level co-location viable.
+    \vspace{-3pt}}
+  \item\small{\textbf{Controller evaluation.} Evaluated the RAN-centric spare-compute controller,
+    including instrumenting the MAC scheduler to measure per-deadline completion and confirm that
+    live RAN performance is preserved while capacity is harvested. \vspace{-3pt}}
+  \item\small{\textbf{Large-scale experiments.} Carried out the large-scale distributed FM training
+    runs on the multi-site testbed used in the evaluation. \vspace{-3pt}}
+\end{itemize}
+
+\end{document}
